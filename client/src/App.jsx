@@ -1,16 +1,17 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
-import AdminDashboard from "./components/AdminDashBoard";
+import AdminDashboard from "./components/AdminPages/AdminDashBoard";
 import { AuthProvider } from "./components/AuthProvider";
 import Dashboard from "./components/DashBoard";
 import Login from "./components/Login";
-import Test from "./components/Test";
-import GivenTests from "./components/GivenTests";
-import GivenTestDetails from "./components/GivenTestDetails";
-import AddUser from "./components/AddUser";
-import SubmitSuccess from "./SubmitSuccess";
-import GenerateTest from "./components/GenerateTest";
-import TestResultsDetails from "./components/TestResultsDetails";
+import Test from "./components/TestPages/Test";
+import GivenTests from "./components/TestPages/GivenTests";
+import GivenTestDetails from "./components/TestPages/GivenTestDetails";
+import AddUser from "./components/AdminPages/AddUser";
+import SubmitSuccess from "./components/TestPages/SubmitSuccess";
+import GenerateTest from "./components/TestPages/GenerateTest";
+import EditUser from "./components/AdminPages/EditUser";
+import TestResultsDetails from "./components/TestPages/TestResultsDetails";
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
             path="/submit-success/:testResultId"
             element={<SubmitSuccess />}
           />
+          <Route path="/admin/edit-user/:id" element={<EditUser />} />
         </Routes>
       </Router>
     </AuthProvider>

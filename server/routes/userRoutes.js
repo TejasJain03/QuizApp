@@ -18,6 +18,24 @@ router
 router.get('/auth/me', authMiddleware, catchAsync(authControllers.userRole))
 
 router.get(
+  '/get-user/:userId',
+  authMiddleware,
+  catchAsync(authControllers.getUser),
+)
+
+router.put(
+  '/update-user/:userId',
+  authMiddleware,
+  catchAsync(authControllers.updateUser),
+)
+
+router.put(
+  '/delete-user/:userId',
+  authMiddleware,
+  catchAsync(authControllers.deleteUser),
+)
+
+router.get(
   '/all-teachers',
   authMiddleware,
   permit(0),
@@ -26,7 +44,7 @@ router.get(
 router.get(
   '/all-students',
   authMiddleware,
-  permit(0,1),
+  permit(0, 1),
   catchAsync(authControllers.getAllStudents),
 )
 router.get(
@@ -38,7 +56,7 @@ router.get(
 router.get(
   '/all-questions',
   authMiddleware,
-  permit(0,1),
+  permit(0, 1),
   catchAsync(authControllers.getALlQuestions),
 )
 

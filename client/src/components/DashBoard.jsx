@@ -1,7 +1,7 @@
 import { useAuth } from "./AuthProvider";
-import AdminDashboard from "../components/AdminDashBoard";
-import StudentDashboard from "../components/StudentDashBoard";
-import TeacherDashBoard from "./TeacherDashboard";
+import AdminDashboard from "./AdminPages/AdminDashBoard";
+import StudentDashboard from "./StudentPages/StudentDashBoard";
+import TeacherDashBoard from "./TeacherPages/TeacherDashboard";
 
 const Dashboard = () => {
   const { user } = useAuth();

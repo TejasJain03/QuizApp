@@ -47,6 +47,10 @@ const AdminDashboard = () => {
       });
   };
 
+  const handleEdit = (id) => {
+    navigate(`/admin/edit-user/${id}`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <h1 className="text-2xl font-bold mb-4 text-center">Admin Dashboard</h1>
@@ -79,8 +83,18 @@ const AdminDashboard = () => {
             {teachers.length > 0 ? (
               <ul className="text-gray-800 mb-4">
                 {teachers.map((teacher) => (
-                  <li key={teacher._id} className="mb-2">
-                    {teacher.name} - {teacher.email}
+                  <li key={teacher._id} className="mb-2 flex justify-between">
+                    <div>
+                      {teacher.name} - {teacher.email}
+                    </div>
+                    <div>
+                      <button
+                        className="bg-blue-600 text-white font-bold py-1 px-4 rounded-md mr-2"
+                        onClick={() => handleEdit(teacher._id)}
+                      >
+                        Edit
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -95,8 +109,18 @@ const AdminDashboard = () => {
             {students.length > 0 ? (
               <ul className="text-gray-800 mb-4">
                 {students.map((student) => (
-                  <li key={student._id} className="mb-2">
-                    {student.name} - {student.email}
+                  <li key={student._id} className="mb-2 flex justify-between">
+                    <div>
+                      {student.name} - {student.email}
+                    </div>
+                    <div>
+                      <button
+                        className="bg-blue-600 text-white font-bold py-1 px-4 rounded-md mr-2"
+                        onClick={() => handleEdit(student._id)}
+                      >
+                        Edit
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -105,7 +129,6 @@ const AdminDashboard = () => {
             )}
           </div>
         )}
-        {/* Add User Button */}
         <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
           <h2 className="text-xl font-semibold mb-2">Add User</h2>
           <p className="text-gray-800 mb-4">
@@ -119,9 +142,23 @@ const AdminDashboard = () => {
           </Link>
         </div>
       </div>
+      <div className="flex justify-center mt-4">
+        <button
+          onClick={() => navigate("/admin/view-questions")}
+          className="bg-green-600 text-white font-bold py-2 px-4 rounded-md mr-2"
+        >
+          View Questions
+        </button>
+        <button
+          onClick={() => navigate("/admin/view-tests")}
+          className="bg-green-600 text-white font-bold py-2 px-4 rounded-md"
+        >
+          View Tests
+        </button>
+      </div>
       <button
         onClick={handleLogout}
-        className="bg-red-600 text-white font-bold p-2 rounded-md block text-center"
+        className="bg-red-600 text-white font-bold p-2 rounded-md block text-center mt-4"
       >
         Logout
       </button>

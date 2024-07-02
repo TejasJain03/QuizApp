@@ -25,6 +25,45 @@ exports.registerUser = async (req, res) => {
   res.send({ success: true, message: 'User Successfully created', user })
 }
 
+exports.getUser = async (req, res) => {
+  const { userId } = req.params
+  const user = await User.findById(userId)
+
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' })
+  }
+  res.status(200).json({ user: user })
+}
+
+exports.updateUser = async (req, res) => {
+  const { userId } = req.params
+  const { name, email, role } = req.body
+
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    { name, email, role },
+    { new: true },
+  )
+
+  if (!updatedUser) {
+    return res.status(404).json({ message: 'User not found' })
+  }
+
+  res.status(200).json({ user: updatedUser })
+}
+
+exports.deleteUser = async (req, res) => {
+  const { userId } = req.params
+
+  const deletedUser = await User.findByIdAndDelete(userId)
+
+  if (!deletedUser) {
+    return res.status(404).json({ message: 'User not found' })
+  }
+
+  res.status(200).json({ message: 'User deleted successfully' })
+}
+
 exports.userRole = async (req, res) => {
   const userId = req.user._id
   const user = await User.findById(userId)

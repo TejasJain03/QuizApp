@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "../axios";
+import Navbar from "../Navbar"; // Adjust the path as per your actual structure
 
 const EditUser = () => {
   const { id } = useParams();
@@ -60,61 +61,89 @@ const EditUser = () => {
   };
 
   if (!user) {
-    return <p>Loading...</p>;
+    return <p className="text-center text-[#003459]">Loading...</p>;
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <h1 className="text-2xl font-bold mb-4 text-center">Edit User</h1>
-      <form
-        onSubmit={handleSubmit}
-        className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md"
-      >
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-700 mb-2">
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 mb-2">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
-            required
-          />
-        </div>
-
-        <div className="flex justify-between">
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white font-bold py-2 rounded-md mr-2"
-          >
-            Save Changes
-          </button>
-          <button
-            type="button"
-            onClick={handleDelete}
-            className="w-full bg-red-600 text-white font-bold py-2 rounded-md"
-          >
-            Delete User
-          </button>
-        </div>
-      </form>
+    <div className="min-h-screen bg-[#f9f9f9] flex flex-col">
+      <Navbar /> {/* Reusable Navbar Component */}
+      <div className="flex flex-col flex-grow items-center justify-center p-6">
+        <h1 className="text-3xl font-bold mb-8 text-[#003459]">Edit User</h1>
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white shadow-lg rounded-lg p-8 max-w-lg w-full"
+        >
+          <div className="mb-6">
+            <label
+              htmlFor="name"
+              className="block text-[#003459] text-sm font-semibold mb-2"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full p-3 border border-[#007ea7] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007ea7]"
+              required
+            />
+          </div>
+          <div className="mb-6">
+            <label
+              htmlFor="email"
+              className="block text-[#003459] text-sm font-semibold mb-2"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full p-3 border border-[#007ea7] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007ea7]"
+              required
+            />
+          </div>
+          <div className="mb-6">
+            <label
+              htmlFor="role"
+              className="block text-[#003459] text-sm font-semibold mb-2"
+            >
+              Role
+            </label>
+            <select
+              id="role"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              className="w-full p-3 border border-[#007ea7] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007ea7]"
+              required
+            >
+              <option value="">Select role</option>
+              <option value="1">Teacher</option>
+              <option value="2">Student</option>
+            </select>
+          </div>
+          <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
+            <button
+              type="submit"
+              className="w-full sm:w-1/2 bg-[#00a9e8] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#007ea7] transition focus:outline-none focus:ring-2 focus:ring-[#007ea7]"
+            >
+              Save Changes
+            </button>
+            <button
+              type="button"
+              onClick={handleDelete}
+              className="w-full sm:w-1/2 bg-[#f87171] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#e11d48] transition focus:outline-none focus:ring-2 focus:ring-[#e11d48]"
+            >
+              Delete User
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

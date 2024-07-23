@@ -19,6 +19,13 @@ route.post(
   permit(0, 1),
   catchAsync(questionControllers.addQuestion),
 )
+
+route.get(
+  '/question/:questionId',
+  authMiddleware,
+  permit(0),
+  catchAsync(questionControllers.getQuestion)
+)
 route.put(
   '/update-question/:questionId',
   authMiddleware,

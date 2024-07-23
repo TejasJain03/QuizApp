@@ -57,7 +57,7 @@ router.get(
   '/all-questions',
   authMiddleware,
   permit(0, 1),
-  catchAsync(authControllers.getALlQuestions),
+  catchAsync(authControllers.getAllQuestions),
 )
 
 module.exports = router

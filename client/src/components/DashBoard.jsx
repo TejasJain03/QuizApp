@@ -1,10 +1,19 @@
+import { useEffect } from "react";
 import { useAuth } from "./AuthProvider";
 import AdminDashboard from "./AdminPages/AdminDashBoard";
 import StudentDashboard from "./StudentPages/StudentDashBoard";
 import TeacherDashBoard from "./TeacherPages/TeacherDashboard";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   if (!user) {
     return <div>Loading...</div>;

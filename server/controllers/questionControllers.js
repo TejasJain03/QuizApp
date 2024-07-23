@@ -12,6 +12,17 @@ exports.addQuestion = async (req, res) => {
   }
 }
 
+exports.getQuestion = async (req, res) => {
+  const { questionId } = req.params
+  const question = await Question.findById(questionId)
+
+  if (!question) {
+    return res.status(404).json({ message: 'Question not found' })
+  }
+
+  res.status(200).json({ question })
+}
+
 exports.getAllQuestions = async (req, res) => {
   const questions = await Question.find()
   res.json(questions)

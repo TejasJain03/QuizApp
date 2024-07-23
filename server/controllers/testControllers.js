@@ -10,6 +10,7 @@ exports.generateTest = async (req, res) => {
     date,
     subject,
     allowedRoles,
+    createdBy: req.user._id,
     questions: questions.map((q) => q._id),
   })
 
@@ -108,7 +109,6 @@ exports.givenTests = async (req, res) => {
     'subject date',
   )
 
-  console.log(testResults)
 
   if (!testResults || testResults.length === 0) {
     return res
@@ -123,10 +123,18 @@ exports.givenTests = async (req, res) => {
 exports.givenTestDetails = async (req, res) => {
   const { testResultId } = req.params
   const testResult = await TestResult.findById(testResultId)
-    .populate('testId', 'subject')
+    .populate({
+      path: 'testId',
+      select: 'subject date createdBy',
+      populate: {
+        path: 'createdBy',
+        select: 'name email',
+      },
+    })
+
     .populate({
       path: 'questions.questionId',
-      select: 'text options',
+      select: 'text options correctAnswer',
     })
 
   if (!testResult) {
@@ -138,10 +146,11 @@ exports.givenTestDetails = async (req, res) => {
 
 exports.testResults = async (req, res) => {
   const { testId } = req.params
-  const testResults = await TestResult.find({ testId: testId }).populate(
-    'user',
-    'name email',
-  )
+
+  const testResults = await TestResult.find({ testId: testId })
+    .populate('user', 'name email')
+    .populate('testId' , 'subject date') // Replace 'field1 field2' with actual fields
+
   res
     .status(200)
     .json({ success: true, message: 'Succesfully Found', testResults })
